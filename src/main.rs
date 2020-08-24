@@ -38,7 +38,7 @@ impl EventHandler for MainState {
     }
 
     fn key_up_event(&mut self, _ctx: &mut Context, keycode: KeyCode, keymod: KeyMods) {
-        info!("key_down_event {:?} {:?}", keycode, keymod);
+        info!("key_up_event {:?} {:?}", keycode, keymod);
     }
 
     fn resize_event(&mut self, context: &mut Context, w: f32, h: f32) {
@@ -59,7 +59,6 @@ pub fn main() -> GameResult {
 
     ggez::start(
         ggez::conf::Conf {
-            cache: ggez::conf::Cache::Tar(include_bytes!("../resources.tar").to_vec()),
             loading: ggez::conf::Loading::Embedded,
             ..Default::default()
         },

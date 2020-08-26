@@ -18,25 +18,21 @@
 <script src="https://not-fl3.github.io/miniquad-samples/gl-0.2.54.js"></script>
 
 <script type="module">
-  import * as bg from './target/gwg_bindgen_bg.js'
-  console.log(bg)
+  import bg from './target/gwg_bindgen.js'
+  console.log('module', bg)
   miniquad_add_plugin({
-    register_plugin (importObject) {
-      console.log('register_plugin', importObject)
-      importObject.__wbindgen_placeholder__ = {
-        ...bg,
-        __wbindgen_describe: console.warn,
-        __wbindgen_describe_closure: console.warn
-      }
-      importObject.__wbindgen_externref_xform__ = {
-        __wbindgen_externref_table_grow: console.warn,
-        __wbindgen_externref_table_set_null: console.warn
-      }
+    register_plugin (imports) {
+      console.log('register_plugin', imports, bg.imports)
+      imports.wbg = bg.imports.wbg
     },
     on_init () {
-      console.log('on_init', wasm_memory)
-      bg.wasm.memory = wasm_memory
+      console.log('on_init', wasm_exports)
+      bg.set_wasm(wasm_exports)
     }
   })
-  load('./target/wasm32-unknown-unknown/release/gwg_bindgen.wasm')
+  bg(false).then(imports => {
+    console.log('imports', imports)
+    bg.imports = imports
+    load('./target/gwg_bindgen_bg.wasm')
+  })
 </script>

@@ -4,12 +4,11 @@ This experiment shows connecting [`wasm-bindgen`](https://rustwasm.github.io/doc
 generated code to a [`good-web-game`](https://github.com/not-fl3/good-web-game) application.
 
 It uses `simple_logger` crate to `log!` in native mode and `web_logger` in WASM mode.
-Both versions build from the same codebase. You should see ggwg main-loop lifecycle
+Both versions build from the same codebase. You should see gwg main-loop lifecycle
 methods calls in console.
 
-It requires a simple modification in the generated `_bg.js` file (replace
-`import * as wasm ...` with `export const wasm = {}`)
-and a simple boilerplate plugin for `miniquad` wasm loader - see `index.html`.
+It requires a modification in the bindgen generated `.js` file (see sed call below)
+and a boilerplate plugin for `miniquad` wasm loader - see `index.html`.
 
 ## Building
 
@@ -24,8 +23,8 @@ WASM:
     $ cargo build --release --target wasm32-unknown-unknown
        Compiling gwg_bindgen v0.1.0 (gwg_bindgen)
         Finished release [optimized] target(s)
-    $ wasm-bindgen --out-dir target --target bundler target/wasm32-unknown-unknown/release/gwg_bindgen.wasm
-    $ sed -i 's/import.*as wasm .*/export const wasm = {};/' target/gwg_bindgen_bg.js
+    $ wasm-bindgen --out-dir target --target web target/wasm32-unknown-unknown/release/gwg_bindgen.wasm
+    $ sed -i 's/import.*from .env.;/init.set_wasm = w => wasm = w;/;s/imports\[.env.\] =.*/return imports;/' target/gwg_bindgen.js
 
 Then serve and open current dir. i.e.
 

@@ -12,13 +12,22 @@ and a boilerplate plugin for `miniquad` wasm loader - see `index.html`.
 
 ## Building
 
-Native:
+### Native
 
     $ cargo run
         Finished dev [unoptimized + debuginfo] target(s)
          Running `target/debug/gwg_bindgen`
 
-WASM:
+### WASM
+
+#### pre-req
+
+    $ rustup target add wasm32-unknown-unknown
+    info: downloading component 'rust-std' for 'wasm32-unknown-unknown'
+    info: installing component 'rust-std' for 'wasm32-unknown-unknown'
+    $ cargo install wasm-bindgen-cli
+
+#### build & run
 
     $ cargo build --release --target wasm32-unknown-unknown
        Compiling gwg_bindgen v0.1.0 (gwg_bindgen)
@@ -26,7 +35,7 @@ WASM:
     $ wasm-bindgen --out-dir target --target web target/wasm32-unknown-unknown/release/gwg_bindgen.wasm
     $ sed -i 's/import.*from .env.;/init.set_wasm = w => wasm = w;/;s/imports\[.env.\] =.*/return imports;/' target/gwg_bindgen.js
 
-Then serve and open current dir. i.e.
+Then serve project dir to browser. i.e.
 
     $ basic-http-server .
     [INFO ] basic-http-server 0.8.1

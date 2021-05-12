@@ -3,7 +3,7 @@
 This experiment shows connecting [`wasm-bindgen`](https://rustwasm.github.io/docs/wasm-bindgen/)
 generated code to a [`good-web-game`](https://github.com/not-fl3/good-web-game) application.
 
-It uses `simple_logger` crate to `log!` in native mode and `web_logger` in WASM mode.
+It uses `simple_logger` crate to `log!` in native mode and `console_log` in WASM mode.
 Both versions build from the same codebase. You should see gwg main-loop lifecycle
 methods calls in console.
 

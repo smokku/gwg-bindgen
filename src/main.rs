@@ -51,7 +51,7 @@ impl EventHandler for MainState {
 pub fn main() -> GameResult {
     cfg_if! {
         if #[cfg(target_arch = "wasm32")] {
-            web_logger::custom_init(web_logger::Config { level: log::Level::Info });
+            console_log::init_with_level(log::Level::Info).expect("A logger was already initialized");
         } else {
             simple_logger::init_with_level(log::Level::Info).expect("A logger was already initialized");
         }

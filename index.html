@@ -14,18 +14,20 @@
 
 <canvas id="glcanvas" tabindex="1" />
 
-<!-- Minified and statically hosted version of https://github.com/not-fl3/miniquad/blob/master/native/sapp-wasm/js/gl.js -->
-<script src="https://not-fl3.github.io/miniquad-samples/gl-0.2.54.js"></script>
+<!-- https://github.com/not-fl3/miniquad/blob/0.2/native/sapp-wasm/js/gl.js -->
+<script src="./gl.js"></script>
+<!-- https://github.com/not-fl3/quad-snd/blob/master/js/audio.js -->
+<script src="./audio.js"></script>
 
 <script type="module">
   import bg from './target/gwg_bindgen.js'
   console.log('module', bg)
   miniquad_add_plugin({
-    register_plugin (imports) {
+    register_plugin(imports) {
       console.log('register_plugin', imports, bg.imports)
       imports.wbg = bg.imports.wbg
     },
-    on_init () {
+    on_init() {
       console.log('on_init', wasm_exports)
       bg.set_wasm(wasm_exports)
     }

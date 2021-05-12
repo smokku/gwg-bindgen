@@ -13,5 +13,5 @@ cfg-if = "0.1"
 simple_logger = "1.6"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-web_logger = "0.2"
-wasm-bindgen = "0.2.67"
+console_log = { version = "0.2", features = ["color"] }
+wasm-bindgen = "0.2"
